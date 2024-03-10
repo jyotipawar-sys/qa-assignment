@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 12345
+      POSTGRES_DB: qpquestions
+    ports:
+      - "5432:5432"  # Expose PostgreSQL port
+
+  app:
+    build: .
+    depends_on:
+      - postgres
+    environment:
+      DATABASE_URL: postgres://postgres:1234@postgres:5432/qpquestions
+    ports:
+      - "8080:8080"  # Expose your app port
